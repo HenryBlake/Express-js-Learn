@@ -1,0 +1,11 @@
+{
+  "name": "project-0",
+  "version": "1.0.0",
+  "description": "My first Express project",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
