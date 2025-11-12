@@ -3,13 +3,16 @@ const path = require("path");
 const app = express();
 const port = 3300;
 
+app.use(express.json());
 //A fake user object.
 const users = [
   {
+    id: 1,
     name: "admin",
     pass: 123456,
   },
   {
+    id: 2,
     name: "Henry",
     pass: 654321,
   },
@@ -70,3 +73,15 @@ app.get("/username/:name", (req, res) => {
   res.send(`<h1>${user.name}</h1>
     <h1>${user.pass}</h1>`);
 });
+
+//Restful ways to get user's info.
+//GET
+app.get("/api/user/:id", (req, res) => {
+  const user = users.find((u) => u.id === parseInt(req.params.id));
+  if (!user) {
+    return res.status(404).json({ message: "Null user" });
+  }
+  res.json(user);
+});
+
+//POST
