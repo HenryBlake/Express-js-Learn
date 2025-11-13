@@ -85,3 +85,12 @@ app.get("/api/user/:id", (req, res) => {
 });
 
 //POST
+app.post("/api/users/", (req, res) => {
+  const newUser = {
+    id: users.length + 1,
+    name: req.body.name,
+    pass: req.bodu.pass,
+  };
+  users.push(newUser);
+  res.status(201).json(newUser);
+});
