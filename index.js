@@ -2,23 +2,15 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const port = 3300;
+const router = require("./router/myRouters");
+
+app.use("/myrouter", router);
 
 app.use(express.json());
-//A fake user object.
-const users = [
-  {
-    id: 1,
-    name: "admin",
-    pass: 123456,
-  },
-  {
-    id: 2,
-    name: "Henry",
-    pass: 654321,
-  },
-];
+
 //a middleware funcation that could display the time.
-//Middleware funcations can modify the req and res.
+//Middleware funcations can run before you get into next stage.
+//It runs between the req-res loop
 const requestTime = function (req, res, next) {
   const now = new Date().toLocaleString("en-CA");
   req.requestTime = now;
@@ -30,16 +22,6 @@ app.use(requestTime);
 //Use this to show the static resources.
 // app.use("/page", express.static(path.join(__dirname, "pages")));
 app.use(express.static("pages"));
-
-app.get("/", (req, res) => {
-  res.send("Elisa is sending her greetings!");
-});
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
-app.get("/a", (req, res) => {
-  res.send("You find me!");
-});
 
 //Use the midlleware funcation to get the current Time.
 app.get("/time", (req, res) => {
