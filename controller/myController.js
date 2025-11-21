@@ -1,4 +1,5 @@
 const express = require("express");
+const getTimeTwo = require("../middleware/requestTime");
 //Sending the basic texts.
 exports.defualt = async (req, res, next) => {
   res.send("Elisa is sending her greetings!");
