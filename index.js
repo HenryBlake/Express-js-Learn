@@ -3,13 +3,20 @@ const path = require("path");
 const app = express();
 const port = 3000;
 const router = require("./router/myRouters");
+const newRouter = require("./router/newRouter");
+const errHandler = require("./middleware/generalErrHandler");
 
 //Start point of defualt.
 app.get("/", (req, res) => {
   res.send("<h1>Hello world!</h1>");
 });
 //There are the modules or the middleware functions that I need.
-app.use("/myrouter", router);
+// app.use("/myrouter", router);
+app.get("/errtest", (req, res, next) => {
+  next(new Error("Test error"));
+});
+app.use("/new", newRouter);
+
 app.use(express.json());
 
 //Use this to show the static resources.
@@ -19,6 +26,9 @@ app.use(express.static("pages"));
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+//This is a general error handler which return a obj when error occurs.
+app.use(errHandler.default);
 //From here is legacy sinppet of code.
 
 // //Use the midlleware funcation to get the current Time.
